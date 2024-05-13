@@ -18,7 +18,7 @@ public class Candidate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "candidate_id")
+    @Column(name = "candidateId")
     private Long candidateId;
 
     @Column(length = 50)
@@ -50,6 +50,4 @@ public class Candidate {
     private String university;
 
     private String type;
-
-    private boolean isDeleted;
 }

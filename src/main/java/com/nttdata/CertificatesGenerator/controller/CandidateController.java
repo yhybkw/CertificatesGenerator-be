@@ -53,6 +53,7 @@ public ResponseEntity<Candidate> getStudentByID(@PathVariable Long candidateId) 
         return ResponseEntity.ok(updatedStudent);
     }
 
+    // delete candidate
     @DeleteMapping("/delete/{candidateId}")
     public void deleteStudent(@PathVariable Long candidateId) {
         candidateRepository.deleteById(candidateId);
