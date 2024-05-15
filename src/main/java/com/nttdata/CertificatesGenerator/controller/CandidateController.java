@@ -39,18 +39,19 @@ public ResponseEntity<Candidate> getStudentByID(@PathVariable Long candidateId) 
 
     // update candidate
     @PutMapping("update/{candidateId}")
-    public ResponseEntity<Candidate> updateStudent (@PathVariable Long candidateId, @RequestBody Candidate studentData){
-        Candidate student = candidateRepository.findById(candidateId)
-                .orElseThrow(() -> new ResourceNotFoundException("Student with id -" + candidateId + "- not exist"));
-        student.setFirstName(studentData.getFirstName());
-        student.setLastName(studentData.getLastName());
-        student.setEmail(studentData.getEmail());
-        student.setCity(studentData.getCity());
-        student.setUniversity(student.getUniversity());
-        student.setDiploma(student.getDiploma());
+    public ResponseEntity<Candidate>
+        updateStudent(@PathVariable Long candidateId, @RequestBody Candidate candidateData){
+        Candidate candidate = candidateRepository.findById(candidateId)
+                .orElseThrow(() -> new ResourceNotFoundException("Candidate with id -" + candidateId + "- not exist"));
+        candidate.setFirstName(candidateData.getFirstName());
+        candidate.setLastName(candidateData.getLastName());
+        candidate.setEmail(candidateData.getEmail());
+        candidate.setCity(candidateData.getCity());
+        candidate.setUniversity(candidateData.getUniversity());
+        candidate.setDiploma(candidateData.getDiploma());
 
-        Candidate updatedStudent = candidateRepository.save(student);
-        return ResponseEntity.ok(updatedStudent);
+        Candidate updatedCandidate = candidateRepository.save(candidate);
+        return ResponseEntity.ok(updatedCandidate);
     }
 
     // delete candidate
