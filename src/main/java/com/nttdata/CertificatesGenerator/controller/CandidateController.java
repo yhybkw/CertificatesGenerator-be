@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/candidate")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin("*")
 public class CandidateController {
 
     @Autowired
@@ -19,28 +19,28 @@ public class CandidateController {
 
 // get candidates list
 @GetMapping("/list")
-public List<Candidate> studentsList(){
+public List<Candidate> candidatesList(){
     return candidateRepository.findAll();
 }
 
 // find candidate by id
 @GetMapping ("/find/{candidateId}")
-public ResponseEntity<Candidate> getStudentByID(@PathVariable Long candidateId) {
-    Candidate student = candidateRepository.findById(candidateId)
+public ResponseEntity<Candidate> getCandidateByID(@PathVariable Long candidateId) {
+    Candidate candidate = candidateRepository.findById(candidateId)
             .orElseThrow(() -> new ResourceNotFoundException("Candidate with id -" + candidateId + "- not exist"));
-    return ResponseEntity.ok(student);
+    return ResponseEntity.ok(candidate);
 }
 
     // add candidate
     @PostMapping ("/add")
-    public Candidate addStudent (@RequestBody Candidate student){
-        return candidateRepository.save(student);
+    public Candidate addCandidate (@RequestBody Candidate candidate){
+        return candidateRepository.save(candidate);
     }
 
     // update candidate
     @PutMapping("update/{candidateId}")
     public ResponseEntity<Candidate>
-        updateStudent(@PathVariable Long candidateId, @RequestBody Candidate candidateData){
+        updateCandidate(@PathVariable Long candidateId, @RequestBody Candidate candidateData){
         Candidate candidate = candidateRepository.findById(candidateId)
                 .orElseThrow(() -> new ResourceNotFoundException("Candidate with id -" + candidateId + "- not exist"));
         candidate.setFirstName(candidateData.getFirstName());
@@ -49,6 +49,10 @@ public ResponseEntity<Candidate> getStudentByID(@PathVariable Long candidateId) 
         candidate.setCity(candidateData.getCity());
         candidate.setUniversity(candidateData.getUniversity());
         candidate.setDiploma(candidateData.getDiploma());
+        candidate.setGender(candidateData.getGender());
+        candidate.setType(candidateData.getType());
+        candidate.setAnapec(candidateData.getAnapec());
+        candidate.setPhoneNumber(candidateData.getPhoneNumber());
 
         Candidate updatedCandidate = candidateRepository.save(candidate);
         return ResponseEntity.ok(updatedCandidate);
@@ -56,7 +60,7 @@ public ResponseEntity<Candidate> getStudentByID(@PathVariable Long candidateId) 
 
     // delete candidate
     @DeleteMapping("/delete/{candidateId}")
-    public void deleteStudent(@PathVariable Long candidateId) {
+    public void deleteCandidate(@PathVariable Long candidateId) {
         candidateRepository.deleteById(candidateId);
     }
 
